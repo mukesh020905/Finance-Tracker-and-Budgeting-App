@@ -37,4 +37,34 @@ public class ExportController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(bis));
     }
+
+    @GetMapping(value = "/csv", produces = "text/csv")
+    public ResponseEntity<InputStreamResource> exportTransactionsCsv(
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ByteArrayInputStream bis = exportService.transactionsToCsv(userDetails.getId());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=transactions.csv");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.parseMediaType("text/csv"))
+                .body(new InputStreamResource(bis));
+    }
+
+    @GetMapping(value = "/backup", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<InputStreamResource> exportBackup(
+            @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        ByteArrayInputStream bis = exportService.exportBackupData(userDetails.getId());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=budgetwise_backup.json");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new InputStreamResource(bis));
+    }
 }

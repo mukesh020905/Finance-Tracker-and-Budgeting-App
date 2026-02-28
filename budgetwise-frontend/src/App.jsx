@@ -9,6 +9,7 @@ import Transactions from './pages/Transactions';
 import Budgets from './pages/Budgets';
 import Goals from './pages/Goals';
 import Profile from './pages/Profile';
+import Forum from './pages/Forum';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -67,6 +68,14 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <Profile />
+              </Layout>
+            </ProtectedRoute>
+          } />
+
+          <Route path="/forum" element={
+            <ProtectedRoute>
+              <Layout>
+                <Forum />
               </Layout>
             </ProtectedRoute>
           } />

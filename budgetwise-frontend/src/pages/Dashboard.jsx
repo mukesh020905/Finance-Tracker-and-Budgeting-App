@@ -130,6 +130,26 @@ const Dashboard = () => {
         fetchAIAdvice();
     }, [currentUser]);
 
+    const handleDownload = async (type, filename) => {
+        if (!currentUser) return;
+        try {
+            const token = currentUser.token;
+            const res = await axios.get(`http://localhost:8080/api/export/${type}`, {
+                headers: { Authorization: `Bearer ${token}` },
+                responseType: 'blob'
+            });
+            const urlBlob = window.URL.createObjectURL(new Blob([res.data]));
+            const link = document.createElement('a');
+            link.href = urlBlob;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+        } catch (error) {
+            console.error(`Error downloading ${type}`, error);
+        }
+    };
+
     if (loading) return (
         <div className="flex items-center justify-center min-h-screen text-blue-600">
             <svg className="animate-spin h-8 w-8 mr-3" viewBox="0 0 24 24">
@@ -147,10 +167,19 @@ const Dashboard = () => {
                     <h2 className="text-3xl font-bold text-gray-900 mb-2">Financial Dashboard</h2>
                     <p className="text-gray-600">Welcome back, {currentUser.username}!</p>
                 </div>
-                <div className="flex gap-4">
-                    <a href="http://localhost:8080/api/export/pdf" target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                        Download Report
-                    </a>
+                <div className="flex gap-3">
+                    <button onClick={() => handleDownload('pdf', 'transactions.pdf')} className="btn-secondary text-sm px-3 py-1.5 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        PDF
+                    </button>
+                    <button onClick={() => handleDownload('csv', 'transactions.csv')} className="btn-secondary text-sm px-3 py-1.5 flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        CSV
+                    </button>
+                    <button onClick={() => handleDownload('backup', 'budgetwise_backup.json')} className="bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100 rounded-lg text-sm px-3 py-1.5 flex items-center gap-1 font-medium transition-colors">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Backup Data
+                    </button>
                 </div>
             </header>
 

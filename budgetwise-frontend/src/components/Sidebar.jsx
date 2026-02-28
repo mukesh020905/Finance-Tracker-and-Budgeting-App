@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaChartPie, FaList, FaWallet, FaBullseye, FaUserCircle, FaShieldAlt } from 'react-icons/fa';
+import { FaChartPie, FaList, FaWallet, FaBullseye, FaUserCircle, FaShieldAlt, FaComments } from 'react-icons/fa';
 import { AuthContext } from '../context/AuthContext';
 
 const Sidebar = () => {
@@ -15,6 +15,7 @@ const Sidebar = () => {
         { path: "/budgets", name: "Budgets", icon: <FaWallet /> },
         { path: "/goals", name: "Goals", icon: <FaBullseye /> },
         { path: "/profile", name: "Profile", icon: <FaUserCircle /> },
+        { path: "/forum", name: "Community Forum", icon: <FaComments /> },
     ];
 
     if (isAdmin) {
