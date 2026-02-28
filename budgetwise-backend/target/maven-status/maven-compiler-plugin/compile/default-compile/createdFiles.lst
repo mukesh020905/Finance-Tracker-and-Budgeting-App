@@ -7,7 +7,9 @@ com\budgetwise\controller\AuthController.class
 com\budgetwise\model\Goal.class
 com\budgetwise\model\Transaction.class
 com\budgetwise\repository\UserRepository.class
+com\budgetwise\repository\ForumPostRepository.class
 com\budgetwise\controller\TransactionController.class
+com\budgetwise\repository\ForumCommentRepository.class
 com\budgetwise\model\Category.class
 com\budgetwise\controller\AIController.class
 com\budgetwise\payload\response\MessageResponse.class
@@ -15,13 +17,16 @@ com\budgetwise\security\services\UserDetailsImpl.class
 com\budgetwise\repository\TransactionRepository.class
 com\budgetwise\service\ExportService.class
 com\budgetwise\controller\ExportController.class
+com\budgetwise\payload\request\BudgetRequest.class
 com\budgetwise\payload\response\JwtResponse.class
 com\budgetwise\model\TransactionType.class
+com\budgetwise\model\ForumComment.class
 com\budgetwise\service\GoalService.class
 com\budgetwise\security\jwt\AuthTokenFilter.class
 com\budgetwise\security\WebSecurityConfig.class
 com\budgetwise\service\BudgetService.class
 com\budgetwise\model\Role.class
+com\budgetwise\controller\ForumController.class
 com\budgetwise\security\jwt\AuthEntryPointJwt.class
 com\budgetwise\security\services\UserDetailsServiceImpl.class
 com\budgetwise\payload\request\TransactionRequest.class
@@ -37,5 +42,6 @@ com\budgetwise\service\AnalyticsService.class
 com\budgetwise\BudgetwiseBackendApplication.class
 com\budgetwise\model\Budget.class
 com\budgetwise\model\ForumPost.class
+com\budgetwise\service\ForumService.class
 com\budgetwise\service\ProfileService.class
 com\budgetwise\controller\GoalController.class

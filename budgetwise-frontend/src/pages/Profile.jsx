@@ -20,7 +20,7 @@ const Profile = () => {
             if (!currentUser) return;
             try {
                 const config = { headers: { Authorization: `Bearer ${currentUser.token}` } };
-                const res = await axios.get('http://localhost:8080/api/profile', config);
+                const res = await axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/profile"), config);
                 if (res.data) {
                     setFormData({
                         monthlyIncome: res.data.monthlyIncome || '',
@@ -43,7 +43,7 @@ const Profile = () => {
         setSaving(true);
         try {
             const config = { headers: { Authorization: `Bearer ${currentUser.token}` } };
-            await axios.post('http://localhost:8080/api/profile', formData, config);
+            await axios.post(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/profile"), formData, config);
             setMsg({ type: 'success', content: 'Profile updated successfully!' });
             setTimeout(() => setMsg({ type: '', content: '' }), 3000); // Clear message
         } catch (err) {

@@ -16,7 +16,7 @@ const Goals = () => {
         if (!currentUser) return;
         try {
             const token = currentUser.token;
-            const res = await axios.get('http://localhost:8080/api/goals', {
+            const res = await axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/goals"), {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setGoals(res.data);
@@ -37,7 +37,7 @@ const Goals = () => {
         e.preventDefault();
         try {
             const token = currentUser.token;
-            await axios.post('http://localhost:8080/api/goals', formData, {
+            await axios.post(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/goals"), formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setFormData({
@@ -56,7 +56,7 @@ const Goals = () => {
         if (!window.confirm("Delete goal?")) return;
         try {
             const token = currentUser.token;
-            await axios.delete(`http://localhost:8080/api/goals/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL || "http://localhost:8080"}/api/goals/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchGoals();
@@ -73,7 +73,7 @@ const Goals = () => {
         try {
             const token = currentUser.token;
             const updatedGoal = { ...goal, currentSaved: goal.currentSaved + amountToAdd };
-            await axios.put(`http://localhost:8080/api/goals/${goal.id}`, updatedGoal, {
+            await axios.put(`${import.meta.env.VITE_API_URL || "http://localhost:8080"}/api/goals/${goal.id}`, updatedGoal, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             e.target.reset();

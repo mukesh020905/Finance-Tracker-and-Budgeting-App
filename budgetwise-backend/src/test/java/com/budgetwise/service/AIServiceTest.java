@@ -71,7 +71,7 @@ class AIServiceTest {
 
         Map<Category, BigDecimal> spending = new HashMap<>();
         spending.put(Category.FOOD, new BigDecimal("600.00")); // High food spending
-        spending.put(Category.TRANSPORT, new BigDecimal("100.00"));
+        spending.put(Category.TRAVEL, new BigDecimal("100.00"));
 
         // Total = 700. Food = 600. 600/700 = 0.85 > 0.40
 

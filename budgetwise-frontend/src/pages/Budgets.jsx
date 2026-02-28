@@ -18,8 +18,8 @@ const Budgets = () => {
             const headers = { Authorization: `Bearer ${token}` };
 
             const [budgetsRes, transRes] = await Promise.all([
-                axios.get('http://localhost:8080/api/budgets', { headers }),
-                axios.get('http://localhost:8080/api/transactions', { headers })
+                axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/budgets"), { headers }),
+                axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/transactions"), { headers })
             ]);
 
             setBudgets(budgetsRes.data);
@@ -41,7 +41,7 @@ const Budgets = () => {
         e.preventDefault();
         try {
             const token = currentUser.token;
-            await axios.post('http://localhost:8080/api/budgets', formData, {
+            await axios.post(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/budgets"), formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setFormData({ category: 'FOOD', limit: '' });
@@ -55,7 +55,7 @@ const Budgets = () => {
         if (!window.confirm("Delete this budget?")) return;
         try {
             const token = currentUser.token;
-            await axios.delete(`http://localhost:8080/api/budgets/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL || "http://localhost:8080"}/api/budgets/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchData();

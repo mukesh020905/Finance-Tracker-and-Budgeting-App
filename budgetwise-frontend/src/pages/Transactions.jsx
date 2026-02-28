@@ -18,7 +18,7 @@ const Transactions = () => {
         if (!currentUser) return;
         try {
             const token = currentUser.token;
-            const res = await axios.get('http://localhost:8080/api/transactions', {
+            const res = await axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/transactions"), {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTransactions(res.data);
@@ -51,11 +51,11 @@ const Transactions = () => {
         try {
             const token = currentUser.token;
             if (editingId) {
-                await axios.put(`http://localhost:8080/api/transactions/${editingId}`, formData, {
+                await axios.put(`${import.meta.env.VITE_API_URL || "http://localhost:8080"}/api/transactions/${editingId}`, formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             } else {
-                await axios.post('http://localhost:8080/api/transactions', formData, {
+                await axios.post(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/transactions"), formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
             }
@@ -85,7 +85,7 @@ const Transactions = () => {
         if (!window.confirm("Are you sure?")) return;
         try {
             const token = currentUser.token;
-            await axios.delete(`http://localhost:8080/api/transactions/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL || "http://localhost:8080"}/api/transactions/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchTransactions();

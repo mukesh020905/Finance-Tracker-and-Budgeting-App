@@ -13,7 +13,7 @@ const Forum = () => {
     const [comments, setComments] = useState({});
     const [newComment, setNewComment] = useState('');
 
-    const API_URL = 'http://localhost:8080/api/forum';
+    const API_URL = ((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/forum");
 
     useEffect(() => {
         fetchPosts();

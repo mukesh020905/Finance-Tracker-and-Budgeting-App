@@ -74,8 +74,8 @@ const Dashboard = () => {
 
                 // Fetch Category & Monthly Data in parallel
                 const [catRes, monthRes] = await Promise.all([
-                    axios.get('http://localhost:8080/api/analytics/category', config),
-                    axios.get('http://localhost:8080/api/analytics/monthly', config)
+                    axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/analytics/category"), config),
+                    axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/analytics/monthly"), config)
                 ]);
 
                 // Process Category Data
@@ -108,7 +108,7 @@ const Dashboard = () => {
                 const token = currentUser.token;
                 const config = { headers: { Authorization: `Bearer ${token}` } };
 
-                const aiRes = await axios.get('http://localhost:8080/api/ai/advice', config);
+                const aiRes = await axios.get(((import.meta.env.VITE_API_URL || "http://localhost:8080") + "/api/ai/advice"), config);
                 if (aiRes.data && aiRes.data.length > 0) {
                     setAiAdvice(aiRes.data);
                 } else {
@@ -134,7 +134,7 @@ const Dashboard = () => {
         if (!currentUser) return;
         try {
             const token = currentUser.token;
-            const res = await axios.get(`http://localhost:8080/api/export/${type}`, {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL || "http://localhost:8080"}/api/export/${type}`, {
                 headers: { Authorization: `Bearer ${token}` },
                 responseType: 'blob'
             });
