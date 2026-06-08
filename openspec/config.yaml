@@ -1,0 +1,23 @@
+schema: spec-driven
+
+context: |
+  We are building BudgetWise, a full-stack financial application.
+  Tech Stack:
+    - Backend: Java 17, Spring Boot 3.2.2, Spring Security (JWT Auth), Spring Data JPA (Hibernate), MySQL Database, iText PDF.
+    - Frontend: React 18, Vite, Tailwind CSS, Axios, Recharts, React Router DOM.
+  Project Structure:
+    - /budgetwise-backend: Maven project for the REST API (starts on http://localhost:8080)
+    - /budgetwise-frontend: Vite-based SPA frontend (starts on http://localhost:5173)
+  Testing Conventions:
+    - Backend: JUnit, Spring Boot Test
+    - Database schemas must be updated incrementally using JPA hibernate auto-update or db_setup.sql.
+  We value clear separations of concern, clean security filter chains, explicit REST API endpoints, and clean react hooks.
+
+rules:
+  proposal:
+    - Identify impact on both frontend and backend
+    - Outline API changes (URI, HTTP method, request/response bodies)
+    - Clarify MySQL schema migrations or updates needed
+  specs:
+    - Use Given/When/Then scenario format for BDD testing
+    - Clearly document authentication requirements for any new API
